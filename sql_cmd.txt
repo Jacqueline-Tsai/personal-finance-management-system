@@ -1,0 +1,100 @@
+create database Finance;
+use Finance;
+
+drop table if exists User;
+create table User (account varchar(255), password varchar(255), name varchar(255), first_data date, primary key(account));
+insert into User values('jaynnah01180118@gmail.com', '0000', 'Jacqueline Tsai', '2001-09-01');
+select * from User;
+
+drop table if exists Rcpt;
+drop table if exists Rcpt_ent;
+create table Rcpt (id int auto_increment, user_acc varchar(255), title varchar(255), primary key(id));
+create table Rcpt_ent (id int auto_increment, rcpt_id int, value int, time date, primary key(id));
+insert into Rcpt values(1, 'jaynnah01180118@gmail.com', 'accompany with antie');
+insert into Rcpt_ent(rcpt_id, value, time) values(1, 10000, '2020-04-01');
+insert into Rcpt values(2, 'jaynnah01180118@gmail.com', 'bpm counter');
+insert into Rcpt_ent(rcpt_id, value, time) values(2, 5000, '2020-06-01');
+insert into Rcpt values(3, 'jaynnah01180118@gmail.com', 'ahp & web & algorithm');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2020-08-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2020-09-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2020-10-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2020-11-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2020-12-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2021-01-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2021-02-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2021-03-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2021-04-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2021-05-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2021-06-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(3, 6000, '2021-07-01');
+insert into Rcpt values(4, 'jaynnah01180118@gmail.com', 'learn unity in lab');
+insert into Rcpt_ent(rcpt_id, value, time) values(4, 3000, '2020-08-01');
+insert into Rcpt values(5, 'jaynnah01180118@gmail.com', 'crowd analysis';
+insert into Rcpt_ent(rcpt_id, value, time) values(5, 5000, '2020-11-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(5, 5000, '2020-12-01');
+insert into Rcpt values(6, 'jaynnah01180118@gmail.com', 'senior game');
+insert into Rcpt_ent(rcpt_id, value, time) values(6, 5000, '2020-12-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(6, 5000, '2021-01-01');
+insert into Rcpt values(7, 'jaynnah01180118@gmail.com', 'red envelop');
+insert into Rcpt_ent(rcpt_id, value, time) values(7, 10000, '2012-01-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(7, 10000, '2013-01-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(7, 10000, '2014-01-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(7, 10000, '2015-01-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(7, 10000, '2016-01-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(7, 10000, '2017-01-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(7, 10000, '2018-01-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(7, 10000, '2019-01-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(7, 10000, '2020-01-01');
+insert into Rcpt_ent(rcpt_id, value, time) values(7, 10000, '2021-01-01');
+insert into Rcpt values(8, 'jaynnah01180118@gmail.com', 'taking exams for people');
+
+insert into Rcpt_ent(rcpt_id, title, value, time) values(8, 'ccu oop', 700, '2021-06-16');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(8, 'data struct', 700, '2021-06-16');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(8, 'cycu probability and statistical', 1000, '2021-06-22');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(8, 'data struct c++', 600, '2021-06-22');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(8, 'ccu oop', 500, '2021-06-23');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(8, 'data struct', 800, '2021-06-23');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(8, 'logic', 500, '2021-06-24');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(8, 'scu history and engineering', 800, '2021-06-25');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(8, 'ksu computer network', 900, '2021-06-26');
+
+insert into Rcpt values(9, 'jaynnah01180118@gmail.com', 'doing hw for people');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(9, 'c++', 500, '2021-06-15');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(9, 'sql', 200, '2021-06-21');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(9, 'ksu sql', 500, '2021-06-26');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(9, 'lhu english', 600, '2021-06-26');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(9, 'lhu asp.net half', 400, '2021-06-27');
+insert into Rcpt_ent(rcpt_id, title, value, time) values(9, 'aiot proposal', 800, '2021-06-28');
+
+select * from Rcpt_ent JOIN Rcpt on Rcpt_ent.rcpt_id = Rcpt.id ;
+
+drop table if exists Inv;
+drop table if exists Inv_rcpt;
+drop table if exists Inv_expnd;
+drop table if exists Inv_ent;
+create table Inv (id int auto_increment, user_acc varchar(255), title varchar(255), primary key(id));
+create table Inv_ent (id int auto_increment, inv_id int, title varchar(255), value int, time date, primary key(id));
+insert into Inv values(1, 'jaynnah01180118@gmail.com', 'crypto currency max');
+insert into Inv_ent (inv_id, value, time) values(1, -25000, '2021-05-01');
+insert into Inv values(2, 'jaynnah01180118@gmail.com', 'chia mining');
+insert into Inv_ent (inv_id, title, value, time) values(2, 'computer', -20000, '2021-05-01');
+insert into Inv_ent (inv_id, title, value, time) values(2, 'hdd * 2', -20000, '2021-05-01');
+insert into Inv_ent (inv_id, title, value, time) values(2, 'chia', 6550, '2021-06-01');
+insert into Inv_ent (inv_id, title,value, time) values(2, 'ssd', 2200, '2021-06-25');
+insert into Inv values(3, 'jaynnah01180118@gmail.com', 'usdt mexc');
+insert into Inv_ent (inv_id, title,value, time) values(2, 'from chia', -8100, '2021-06-01');
+
+drop table if exists Expnd;
+create table Expnd (id int auto_increment, user_acc int, title varchar(255), value int, time date, primary key(id));
+drop table if exists Expnd_ent;
+create table Expnd_ent (id int auto_increment, expnd_id int, value int, time date, primary key(id));
+
+select * from Investment;
+select * from Inv_expnd;
+
+select sum(value) from Rcpt_ent group by year(time);
+
+
+
+
+

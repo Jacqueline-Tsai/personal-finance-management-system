@@ -1,0 +1,60 @@
+.container {
+    display: inline-flex;
+    min-height: calc(100% - var(--card-margin-h));
+    height: calc(100% - var(--card-margin-h) * 2);
+    width: calc(100% - var(--sidebar-w) - var(--card-margin-w) * 2);
+    margin-left: calc(var(--sidebar-w) + var(--card-margin-w));
+    margin-top: var(--card-margin-h);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+}
+.card1 {
+    flex: 0 0 44vw;
+    background-color: var(--gray);
+    margin-bottom: var(--card-margin-w);
+    margin-top: var(--card-margin-w);
+    margin-left: var(--card-margin-h);
+    margin-right: var(--card-margin-h);
+    border-radius: 10px;
+    align-items: flex-start;
+    height: 44vh;
+}
+.card2 {
+    float: left;
+    flex: 0 0 22vw;
+    border-radius: 10px;
+    align-items: flex-start;
+    height: 44vh;
+    width: 20vw;
+}
+.card23{
+    background-color: var(--gray);
+    margin-bottom: var(--card-margin-h);
+    margin-top: var(--card-margin-h);
+    margin-left: var(--card-margin-w);
+    margin-right: var(--card-margin-w);
+    border-radius: 10px;
+    height: 20vh;
+    width: 20vw;
+}
+.card3 {
+    flex: 0 0 20vw;
+    background-color: var(--gray);
+    margin-bottom: var(--card-margin-h);
+    margin-top: var(--card-margin-h);
+    margin-left: var(--card-margin-w);
+    margin-right: var(--card-margin-w);
+    border-radius: 10px;
+    align-items: flex-start;
+    height: 20vh;
+}
+.in-card1 {
+    margin-left: 2vw;
+    width: 40vw;
+}
+.in-card3 {
+    margin-left: 1vw;
+    width: 18vw;
+}

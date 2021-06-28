@@ -1,0 +1,119 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/button.css">
+    <link rel="stylesheet" href="/static/css/text.css">
+    <script src="https://kit.fontawesome.com/f955407fc8.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    {% from "side_bar.html" import side_bar with context %}
+    {{side_bar(0)}}
+
+    <div class="grid container">
+        <div class="grid1">
+            <div class="card">
+                <h5>Reciept</h5>
+                <h2 class="mid num">${{rcpt}}</h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Expenditure</h5>
+                <h2 class="mid num">${{expnd}}</h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Investment Reciept</h5>
+                <h2 class="mid num">${{inv_rcpt}}</h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Investment Expenditure</h5>
+                <h2 class="mid num">${{inv_expnd}}</h1>
+            </div>
+        </div>
+        <div class="grid1">
+            1
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Investment</h5>
+                <h2 class="mid num">${{inv}}</h1>
+            </div>
+        </div>
+        <div class="grid1">
+            2
+        </div>
+        <div class="grid2">
+            <div class="card">
+                <h4>Balance</h4>
+                <h1 class="mid num">${{balance}}</h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5></h5>
+                <h2 class="mid num">$</h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Most Reciept</h5>
+                <h2 class="mid num">${{mth_rcpt}}</h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Most Expenditure</h5>
+                <h2 class="mid num">${{mth_expnd}}</h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Most Reciept</h5>
+                <h2 class="mid num">${{yr_rcpt}}</h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Most Expenditure</h5>
+                <h2 class="mid num">${{yr_expnd}}</h1>
+            </div>
+        </div>
+     </div>
+    <!--<div class="container">
+        <div class="card3"></div>
+        <div class="card3"></div>
+        <div class="card3"></div>
+        <div class="card3">
+            <div class="in-card3">
+                <h5>Balance</h5>
+                <h3 class="mid num">${{balance}}</h3>
+            </div>
+        </div>
+        <div class="card2">
+            <div class="card23"></div>
+            <div class="card23"></div>
+        </div>
+        <div class="card1">
+            <div class="in-card1">
+                <h4>Balance</h4>
+                <h1 class="mid num">${{balance}}</h1>
+            </div>
+        </div>
+        <div class="card2"></div>
+        <div class="card3"></div>
+        <div class="card3"></div>
+        <div class="card3"></div>
+        <div class="card3"></div>
+    </div>-->
+    
+</body>
+
+</html>

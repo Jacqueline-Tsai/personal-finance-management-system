@@ -1,0 +1,81 @@
+
+:root {
+    --black: rgba(21,32,54,1);
+    --gray: rgba(34,42,61,1);
+    --card-margin-h: 2vh;
+    --card-margin-w: 2vh;
+    --sidebar-w: 85px;
+}
+html {
+    font-family: Serif;
+}
+body {
+    background-color: var(--black);
+    margin: 0;
+    padding: 0;
+}
+.side-bar {
+    width: 85px;
+    height: 100vh;
+    background-color: var(--gray);
+    position: fixed;
+}
+.side-bar-block {
+    width: 85px;
+    height: 85px;
+}
+.side-bar-logo {
+    width: 85px;
+    height: 70px;
+}
+.top-bar {
+    left: 85px;
+    width: 100vw;
+    height: 60px;
+    background-color: var(--gray);
+}
+.line {
+    height: 1px;
+    width: 85px;
+    background-color: white;
+}
+.container {
+    height: calc(100% - var(--card-margin-h) * 2);
+    width: calc(100% - var(--sidebar-w) - var(--card-margin-w) * 2);
+    margin-left: calc(var(--sidebar-w) + var(--card-margin-w));
+    margin-top: var(--card-margin-h);
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 24vh 24vh 24vh 24vh;
+    height: calc(100% - var(--card-margin-h) * 2);
+    width: calc(100% - var(--sidebar-w) - var(--card-margin-w) * 2);
+    margin-left: calc(var(--sidebar-w) + var(--card-margin-w));
+    margin-top: var(--card-margin-h);
+}
+.grid1 {
+    background-color: var(--gray);
+    margin-bottom: var(--card-margin-h);
+    margin-top: var(--card-margin-h);
+    margin-left: var(--card-margin-w);
+    margin-right: var(--card-margin-w);
+    border-radius: 10px;
+}
+.grid2 {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    background-color: var(--gray);
+    margin-bottom: var(--card-margin-h);
+    margin-top: var(--card-margin-h);
+    margin-left: var(--card-margin-w);
+    margin-right: var(--card-margin-w);
+    border-radius: 10px;
+}
+.card {
+    margin-left: 5%; 
+    height: 90%; 
+    width:90%;
+}
