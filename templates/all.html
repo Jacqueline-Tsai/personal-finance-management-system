@@ -1,0 +1,103 @@
+{% macro all(type) %}
+    <form id="form_post_{{type}}" method='POST' action="/receipt/post"></form>
+    {% for item in data.all -%}
+        <form id="form_put_{{type}}{{item.id}}" method='POST' action="/receipt/put/{{item.id}}"></form>
+        <form id="form_delete_{{type}}{{item.id}}" method='POST' action="/receipt/delete/{{item.id}}"></form>  
+        <form id="form_post_{{type}}_ent{{item.id}}" method="POST" action="/receipt/ent/post/{{item.id}}"></form>
+    {% endfor -%}            
+    {% for e in data.ent -%}
+        <form id="form_put_{{type}}_ent{{e.id}}" method='POST' action="/receipt/ent/put/{{e.id}}"></form>
+        <form id="form_delete_{{type}}_ent{{e.id}}" method='POST' action="/receipt/ent/delete/{{e.id}}"></form>
+    {% endfor -%}
+
+    <div class="grid container">            
+        <div class="grid4">
+            <div class="table-responsive">
+                <table class="table1">
+                    <thead>
+                        <tr>
+                            <th class="mid" style="width: 3%">
+                                <button onclick="toggle('row_{{type}}_new')">
+                                    <i class="fas fa-plus fa-2x"></i>
+                                </button>
+                            </th>
+                            <th style="width: 27%">TITLE</th>
+                            <th class="mid" style="width: 15%">COUNT</th>
+                            <th class="mid" style="width: 15%">SUM</th>
+                            <th class="mid" style="width: 15%">FIRST TIME</th>
+                            <th class="mid" style="width: 15%">LAST TIME</th>
+                            <th class="mid" style="width: 10%">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="row_{{type}}_new" style="display: none;">
+                            <td></td>
+                            <td><input type="text" name="title" form="form_post_{{type}}"/></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="mid">
+                                <div class="in-row">
+                                    <button form="form_post_{{type}}">
+                                        <i class="fas fa-check fa-2x"></i>
+                                    </button>
+                                </div>
+                                <div class="in-row">
+                                    <button onclick="toggle('row_{{type}}_new');">
+                                        <i class="fas fa-times fa-2x"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% for item in data.all -%}
+                            <tr id="row_{{type}}_edit{{item.id}}" style="display: none;">
+                                <td></td>
+                                <td><input type="text" name="title" form="form_put_{{type}}{{item.id}}" value="{{item['title']}}"/></td>
+                                <td class="num mid">{{ item.cnt }}</td>
+                                <td class="num mid">$ {{ item.sum }}</td>
+                                <td class="num mid">{{ item.min_t }}</td>
+                                <td class="num mid">{{ item.max_t }}</td>
+                                <td class="mid">
+                                    <div class="in-row">
+                                        <button form="form_put_{{type}}{{item.id}}">
+                                            <i class="fas fa-check fa-2x"></i>
+                                        </button>
+                                    </div>
+                                    <div class="in-row">
+                                        <button onclick="toggle('row_{{type}}_edit'+'{{item.id}}'); toggle('row_{{type}}'+'{{item.id}}');">
+                                            <i class="fas fa-times fa-2x"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="clickable" id="row_{{type}}{{item.id}}" onclick="toggle('detail'+'{{item.id}}')">
+                                <td></td>
+                                <td>{{ item['title'] }}</td>
+                                <td class="num mid">{{ item.cnt }}</td>
+                                <td class="num mid">$ {{ item.sum }}</td>
+                                <td class="num mid">{{ item.min_t }}</td>
+                                <td class="num mid">{{ item.max_t }}</td>
+                                <td class="mid">
+                                    <div class="in-row">
+                                        <button onclick="toggle('row_{{type}}_edit'+'{{item.id}}'); toggle('row_{{type}}'+'{{item.id}}'); toggle('detail'+'{{item.id}}');">
+                                            <i class="fas fa-pencil-alt fa-2x"></i>
+                                        </button>
+                                    </div>
+                                    <div class="in-row">
+                                        <button form="form_delete_{{type}}{{item.id}}">
+                                            <i class="fas fa-trash-alt fa-2x"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            {% from "ent.html" import ent with context %}
+                            {{ent()}}
+                        {%- endfor %} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

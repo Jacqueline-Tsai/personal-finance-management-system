@@ -2,17 +2,19 @@
 <html class="no-js" lang="en">
     <head>
         <meta charset="utf-8">
-        <script type="text/javascript" src={{ url_for("static", filename="js/index.js") }}></script>
         <link rel="stylesheet" href="/static/css/style.css">
         <link rel="stylesheet" href="/static/css/button.css">
         <link rel="stylesheet" href="/static/css/text.css">
         <link rel="stylesheet" href="/static/css/table.css">
         <script src="https://kit.fontawesome.com/f955407fc8.js" crossorigin="anonymous"></script>
+        <script src={{ url_for("static", filename="js/receipt.js") }}></script>
+        <script type="text/javascript" src={{ url_for("static", filename="js/index.js") }}></script>
     </head>
     <body>
         {% from "side_bar.html" import side_bar with context %}
-        {{side_bar(3)}}
+        {{side_bar(1)}}
         {% from "all.html" import all with context %}
-        {{all("inv")}}
+        {{all("rcpt")}}
+        
     </body>
 </html>

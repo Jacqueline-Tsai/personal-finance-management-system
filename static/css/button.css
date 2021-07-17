@@ -1,5 +1,5 @@
 
-.btn {
+button {
     background-color: transparent;
     border: none;
     color: white;
@@ -11,6 +11,6 @@
 .btn-select {
     background-color: var(--black);
 }
-.btn:hover {
+button:hover {
     background-color: var(--black);
 }

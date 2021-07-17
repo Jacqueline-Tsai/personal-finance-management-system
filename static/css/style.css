@@ -4,10 +4,10 @@
     --gray: rgba(34,42,61,1);
     --card-margin-h: 2vh;
     --card-margin-w: 2vh;
-    --sidebar-w: 85px;
+    --sidebar-w: 60px;
 }
 html {
-    font-family: Serif;
+    font-family: 'verdana';
 }
 body {
     background-color: var(--black);
@@ -15,28 +15,22 @@ body {
     padding: 0;
 }
 .side-bar {
-    width: 85px;
+    width: var(--sidebar-w);
     height: 100vh;
     background-color: var(--gray);
     position: fixed;
 }
 .side-bar-block {
-    width: 85px;
-    height: 85px;
+    width: var(--sidebar-w);
+    height: var(--sidebar-w);
 }
 .side-bar-logo {
-    width: 85px;
-    height: 70px;
-}
-.top-bar {
-    left: 85px;
-    width: 100vw;
-    height: 60px;
-    background-color: var(--gray);
+    width: var(--sidebar-w);
+    height: var(--sidebar-w);
 }
 .line {
     height: 1px;
-    width: 85px;
+    width: var(--sidebar-w);
     background-color: white;
 }
 .container {
@@ -49,10 +43,6 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 24vh 24vh 24vh 24vh;
-    height: calc(100% - var(--card-margin-h) * 2);
-    width: calc(100% - var(--sidebar-w) - var(--card-margin-w) * 2);
-    margin-left: calc(var(--sidebar-w) + var(--card-margin-w));
-    margin-top: var(--card-margin-h);
 }
 .grid1 {
     background-color: var(--gray);
@@ -74,8 +64,26 @@ body {
     margin-right: var(--card-margin-w);
     border-radius: 10px;
 }
+.grid4 {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 5;
+    background-color: var(--gray);
+    margin-bottom: var(--card-margin-h);
+    margin-top: var(--card-margin-h);
+    margin-left: var(--card-margin-w);
+    margin-right: var(--card-margin-w);
+    border-radius: 10px;
+}
 .card {
     margin-left: 5%; 
     height: 90%; 
     width:90%;
+}
+.in-row {
+    display: inline-block;
+}
+.input {
+    width: 100%;
 }

@@ -1,0 +1,90 @@
+{% macro ent() %}
+    <tr id="detail{{item.id}}" style="display: none;">
+        <td colspan="2"></td>
+        <td colspan="4">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="mid">
+                            <button onclick="toggle('row_rcpt_ent_new')">
+                                <i class="fas fa-plus fa-1x"></i>
+                            </button>
+                        </th>
+                        <th>Title</th>
+                        <th class="mid">Value</th>
+                        <th class="mid">Time</th>
+                        <th class="mid">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="row_rcpt_ent_new" style="display: none;">
+                        <td></td>
+                        <td>
+                            <input type="text" name="title" form="form_post_rcpt_ent{{item.id}}">
+                        </td>
+                        <td>
+                            <input type="text" name="value" form="form_post_rcpt_ent{{item.id}}">
+                        </td>
+                        <td class="num mid">
+                            <input type="date" name="time" form="form_post_rcpt_ent{{item.id}}">
+                        </td>
+                        <td class="mid">
+                            <div class="in-row">
+                                <button form="form_post_rcpt_ent{{item.id}}">
+                                    <i class="fas fa-check fa-1x"></i>
+                                </button>
+                            </div>
+                            <div class="in-row">
+                                <button onclick="toggle('row_rcpt_ent_new');">
+                                    <i class="fas fa-times fa-1x"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% for e in data.ent -%}
+                        {%- if item.id == e.parent_id -%}
+                            <tr id="row_rcpt_ent_edit{{e.id}}" style="display: none;">
+                                <td></td>
+                                <td><input type="text" name="title" form="form_put_rcpt_ent{{e.id}}" value="{{e.title}}"></td>
+                                <td><input type="text" name="value" form="form_put_rcpt_ent{{e.id}}" value="{{e.value}}"></td>
+                                <td class="num mid"><input type="date" name="time" form="form_put_rcpt_ent{{e.id}}" value="{{e.time}}"></td>
+                                <td class="mid">
+                                    <div class="in-row">
+                                        <button form="form_put_rcpt_ent{{e.id}}">
+                                            <i class="fas fa-check fa-1x"></i>
+                                        </button>
+                                    </div>
+                                    <div class="in-row">
+                                        <button onclick="toggle('row_rcpt_ent_edit'+'{{e.id}}'); toggle('row_rcpt_ent'+'{{e.id}}');">
+                                            <i class="fas fa-times fa-1x"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="row_rcpt_ent{{e.id}}">
+                                <td></td>
+                                <td>{{ e.title }}</td>
+                                <td class="num mid">$ {{ e.value }}</td>
+                                <td class="num mid">{{ e.time }}</td>
+                                <td class="mid">
+                                    <div class="in-row">
+                                        <button onclick="toggle('row_rcpt_ent_edit'+'{{e.id}}'); toggle('row_rcpt_ent'+'{{e.id}}');">
+                                            <i class="fas fa-pencil-alt fa-1x"></i>
+                                        </button>
+                                    </div>
+                                    <div class="in-row">
+                                        <button form="form_delete_rcpt_ent{{e.id}}">
+                                            <i class="fas fa-trash-alt fa-1x"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {%- endfor %}
+                </tbody>                                                            
+            </table>
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+{% endmacro %}

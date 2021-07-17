@@ -1,0 +1,100 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript" src={{ url_for("static", filename="js/index.js") }}></script>
+        <link rel="stylesheet" href="/static/css/style.css">
+        <link rel="stylesheet" href="/static/css/button.css">
+        <link rel="stylesheet" href="/static/css/text.css">
+        <link rel="stylesheet" href="/static/css/table.css">
+        <script src="https://kit.fontawesome.com/f955407fc8.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        {% from "side_bar.html" import side_bar with context %}
+        {{side_bar(3)}}
+        <div class="grid container">
+            <div class="grid4">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 14%">TITLE</th>
+                                <th class="mid" style="width: 14%">RECEIPT COUNT</th>
+                                <th class="mid" style="width: 14%">RECEIPT SUM</th>
+                                <th class="mid" style="width: 14%">EXPENDITURE COUNT</th>
+                                <th class="mid" style="width: 14%">EXPENDITURE SUM</th>
+                                <th class="mid" style="width: 12%">SUM</th>
+                                <th class="mid" style="width: 9%">FIRST TIME</th>
+                                <th class="mid" style="width: 9%">LAST TIME</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data.all -%}
+                                <tr class="clickable" id="row{{i['id']}}" onclick="toggle(this)">
+                                    <td>{{ i['title'] }}</td>
+                                    <td class="num mid">{{ i['rcpt_cnt'] }}</td>
+                                    <td class="num mid">$ {{ i['rcpt_sum'] }}</td>
+                                    <td class="num mid">{{ i['expnd_cnt'] }}</td>
+                                    <td class="num mid">$ {{ i['expnd_sum'] }}</td>
+                                    <td class="num mid">$ {{ i['rcpt_sum'] - i['expnd_sum'] }}</td>
+                                    <td class="num mid">{{ i['min_t'] }}</td>
+                                    <td class="num mid">{{ i['max_t'] }}</td>
+                                </tr>
+                                <tr id="detail{{i['id']}}">
+                                    <td></td>
+                                    <td colspan="2">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Title</th>
+                                                    <th>Value</th>
+                                                    <th>Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for e in data.ent -%}
+                                                    {%- if i['id'] == e['inv_id'] and e.value>0 -%}                            
+                                                    <tr>
+                                                        <td>{{ e['title'] }}</td>
+                                                        <td class="num">$ {{ e['value'] }}</td>
+                                                        <td class="num">{{ e['time'] }}</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                {%- endfor %}
+                                            </tbody>                                                            
+                                        </table>
+                                    </td>
+                                    <td colspan="2">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Title</th>
+                                                    <th>Value</th>
+                                                    <th>Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for e in data.ent -%}
+                                                    {%- if i['id'] == e['inv_id'] and e.value<0 -%}                            
+                                                    <tr>
+                                                        <td>{{ e['title'] }}</td>
+                                                        <td class="num">$ {{ e['value'] }}</td>
+                                                        <td class="num">{{ e['time'] }}</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                {%- endfor %}
+                                            </tbody>                                                            
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            {%- endfor %} 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>    
+    </body>
+</html>
