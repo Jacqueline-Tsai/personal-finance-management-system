@@ -12,7 +12,263 @@
     <body>
         {% from "side_bar.html" import side_bar with context %}
         {{side_bar(3)}}
-        {% from "all.html" import all with context %}
-        {{all("inv")}}
+        
+        <form id="form_post_investment_class" method='POST' action="/post/investment_class"></form>
+        {% for investment_class in data.investment_class -%}
+            <form id="form_put_investment_class{{investment_class.id}}" method='POST' action="/put/investment_class/{{investment_class.id}}"></form>
+            <form id="form_delete_investment_class{{investment_class.id}}" method='POST' action="/delete/investment_class/{{investment_class.id}}"></form>  
+            <form id="form_post_investment{{investment_class.id}}" method="POST" action="/post/investment/{{investment_class.id}}"></form>
+        {% endfor -%}            
+        {% for investment in data.investment -%}
+            <form id="form_put_investment{{investment.id}}" method='POST' action="/put/investment/{{investment.id}}"></form>
+            <form id="form_delete_investment{{investment.id}}" method='POST' action="/delete/investment/{{investment.id}}"></form>
+            <form id="form_post_investment_entity{{investment.id}}" method="POST" action="/post/investment_entity/{{investment.id}}"></form>
+        {% endfor -%}
+        {% for investment_entity in data.investment_entity -%}
+            <form id="form_put_investment_entity{{investment_entity.id}}" method='POST' action="/put/investment_entity/{{investment_entity.id}}"></form>
+            <form id="form_delete_investment_entity{{investment_entity.id}}" method='POST' action="/delete/investment_entity/{{investment_entity.id}}"></form>
+        {% endfor -%}
+
+        <div class="grid container">
+            <div class="grid4">
+                <div class="table-responsive">
+                    <table class="table1">
+                        <thead>
+                            <tr>
+                                <th class="mid" style="width: 3%">
+                                    <button onclick="toggle('new_row_investment_class')">
+                                        <i class="fas fa-plus fa-2x"></i>
+                                    </button>
+                                </th>
+                                <th style="width: 15%">TITLE</th>
+                                <th class="mid" style="width: 25%"></th>
+                                <th class="mid" style="width: 9%">COUNT</th>
+                                <th class="mid" style="width: 11%">BOOK VALUE</th>
+                                <th class="mid" style="width: 11%">REALIZED</th>
+                                <th class="mid" style="width: 11%">UNREALIZED</th>
+                                <th class="mid" style="width: 15%">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="new_row_investment_class" style="display: none;">
+                                <td></td>
+                                <td><input type="text" name="title" form="form_post_investment_class"/></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="mid">
+                                    <div class="in-row">
+                                        <button form="form_post_investment_class">
+                                            <i class="fas fa-check fa-2x"></i>
+                                        </button>
+                                    </div>
+                                    <div class="in-row">
+                                        <button onclick="toggle('new_row_investment_class');">
+                                            <i class="fas fa-times fa-2x"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% for investment_class in data.investment_class -%}
+                                <tr id="edit_row_investment_class{{investment_class.id}}" style="display: none;">
+                                    <td></td>
+                                    <td><input style="color:white; background-color: rgb(34,42,61); outline: none; border:1px; border-bottom-style: solid;border-top-style: none;border-left-style:none;border-right-style:none;" type="text" name="title" form="form_put_investment_class{{investment_class.id}}" value="{{ investment_class.title }}" autofocus/></td>
+                                    <td></td>
+                                    <td class="num mid">{{ investment_class.count}}</td>
+                                    <td class="num mid green_pos_red_neg">{{ investment_class.book_value }}</td>
+                                    <td class="num mid green_pos_red_neg">{{ investment_class.realized }}</td>
+                                    <td class="num mid green_pos_red_neg">{{ investment_class.realized + investment_class.book_value }}</td>
+                                    <td class="mid">
+                                        <div class="in-row">
+                                            <button form="form_put_investment_class{{investment_class.id}}">
+                                                <i class="fas fa-check fa-2x"></i>
+                                            </button>
+                                        </div>
+                                        <div class="in-row">
+                                            <button onclick="toggle('edit_row_investment_class'+'{{investment_class.id}}'); toggle('row_investment_class'+'{{investment_class.id}}');">
+                                                <i class="fas fa-times fa-2x"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="clickable" id="row_investment_class{{investment_class.id}}" onclick="toggle('detail_table_investment_class'+'{{investment_class.id}}')">
+                                    <td></td>
+                                    <td>{{ investment_class.title }}</td>
+                                    <td></td>
+                                    <td class="num mid">{{ investment_class.count}}</td>
+                                    <td class="num mid green_pos_red_neg">{{ investment_class.book_value }}</td>
+                                    <td class="num mid green_pos_red_neg">{{ investment_class.realized }}</td>
+                                    <td class="num mid green_pos_red_neg">{{ investment_class.realized + investment_class.book_value }}</td>
+                                    <td class="mid">
+                                        <div class="in-row">
+                                            <button onclick="toggle('edit_row_investment_class'+'{{investment_class.id}}'); toggle('row_investment_class'+'{{investment_class.id}}'); toggle('detail_table_investment_class'+'{{investment_class.id}}');">
+                                                <i class="fas fa-pencil-alt fa-2x"></i>
+                                            </button>
+                                        </div>
+                                        <div class="in-row">
+                                            <button form="form_delete_investment_class{{investment_class.id}}" onclick="toggle('detail_table_investment_class'+'{{investment_class.id}}');">
+                                                <i class="fas fa-trash-alt fa-2x"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+    
+                                <tr id="detail_table_investment_class{{investment_class.id}}" style="display: none;">
+                                    <td colspan="1"></td>
+                                    <td colspan="6">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="mid" style="width: 3%">
+                                                        <button onclick="toggle('new_row_investment'+'{{investment_class.id}}')">
+                                                            <i class="fas fa-plus fa-1x"></i>
+                                                        </button>
+                                                    </th>
+                                                    <th style="width: 25%">Title</th>
+                                                    <th class="mid" style="width: 11%">COUNT</th>
+                                                    <th class="mid" style="width: 12%">REMAINING</th>
+                                                    <th class="mid" style="width: 12%">BOOK VALUE</th>
+                                                    <th class="mid" style="width: 12%">REALIZED</th>
+                                                    <th class="mid" style="width: 12%">UNREALIZED</th>
+                                                    <th class="mid" style="width: 15%">ACTIONS</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr id="new_row_investment{{investment_class.id}}" style="display: none;">
+                                                    <td></td>
+                                                    <td><input type="text" name="title" form="form_post_investment{{investment_class.id}}"></td>
+                                                    <td></td>
+                                                    <td class="num mid">
+                                                        <input type="text" name="remaining" form="form_post_investment{{investment_class.id}}">
+                                                    </td>
+                                                    <td class="mid">
+                                                        <input type="text" name="book_value" form="form_post_investment{{investment_class.id}}">
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="mid">
+                                                        <div class="in-row">
+                                                            <button form="form_post_investment{{investment_class.id}}">
+                                                                <i class="fas fa-check fa-1x"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="in-row">
+                                                            <button onclick="toggle('new_row_investment'+'{{investment_class.id}}');">
+                                                                <i class="fas fa-times fa-1x"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                {% for investment in data.investment -%}
+                                                    {%- if investment_class.id == investment.class_id -%}
+                                                        <tr id="edit_row_investment{{investment.id}}" style="display: none;">
+                                                            <td></td>
+                                                            <td><input type="text" name="title"  form="form_put_investment{{investment.id}}" value="{{investment.title}}"></td>
+                                                            <td></td>
+                                                            <td><input type="text" name="remaining" form="form_put_investment{{investment.id}}" value="{{investment.remaining}}"></td>
+                                                            <td><input type="text" name="book_value" form="form_put_investment{{investment.id}}" value="{{investment.book_value}}"></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="mid">
+                                                                <div class="in-row">
+                                                                    <button form="form_put_investment{{investment.id}}">
+                                                                        <i class="fas fa-check fa-1x"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="in-row">
+                                                                    <button onclick="toggle('edit_row_investment'+'{{investment.id}}'); toggle('row_investment'+'{{investment.id}}');">
+                                                                        <i class="fas fa-times fa-1x"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="row_investment{{investment.id}}">
+                                                            <td></td>
+                                                            <td>{{ investment.title }}</td>
+                                                            <td class="num mid">{{ investment.count }}</td>
+                                                            <td class="num mid">{{ investment.remaining }}</td>
+                                                            <td class="num mid green_pos_red_neg">{{ investment.book_value }}</td>
+                                                            <td class="num mid green_pos_red_neg">{{ investment.realized }}</td>
+                                                            <td class="num mid green_pos_red_neg">{{ investment.realized + investment.book_value }}</td>
+                                                            <td class="mid" style="position: relative;">
+                                                                <div class="in-row">
+                                                                    <button class="view-investment-entity-button" onmouseover="toggle('detail_table_investment'+'{{investment.id}}', '');">
+                                                                        <i class="fas fa-eye fa-1x"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="in-row">
+                                                                    <button onclick="toggle('edit_row_investment'+'{{investment.id}}'); toggle('row_investment'+'{{investment.id}}');">
+                                                                        <i class="fas fa-pencil-alt fa-1x"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="in-row">
+                                                                    <button form="form_delete_investment{{investment.id}}">
+                                                                        <i class="fas fa-trash-alt fa-1x"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="floating-box" id="detail_table_investment{{investment.id}}" style="display: none;" onmouseleave="toggle('detail_table_investment'+'{{investment.id}}', 'none');">
+                                                                    <table>
+                                                                        <thead>
+                                                                            <th class="mid" style="width: 5%">
+                                                                                <button onclick="toggle('new_row_investment_entity'+'{{investment.id}}')">
+                                                                                    <i class="fas fa-plus fa-1x"></i>
+                                                                                </button>
+                                                                            </th>
+                                                                            <th class="mid" style="width: 25%">VALUE</th>
+                                                                            <th class="mid" style="width: 45%">TIME</th>
+                                                                            <th class="mid" style="width: 25%">Delete</th>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr id="new_row_investment_entity{{investment.id}}" style="display: none;"> 
+                                                                                <td></td>
+                                                                                <td><input type="text" name="value" form="form_post_investment_entity{{investment.id}}" size=7%/></td>
+                                                                                <td><input type="date" name="time" form="form_post_investment_entity{{investment.id}}" size=7%/></td>
+                                                                                <td class="mid">
+                                                                                    <div class="in-row">
+                                                                                        <button form="form_post_investment_entity{{investment.id}}">
+                                                                                            <i class="fas fa-check fa-1x"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="in-row">
+                                                                                        <button onclick="toggle('new_row_investment_entity'+'{{investment.id}}');">
+                                                                                            <i class="fas fa-times fa-1x"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                            {% for investment_entity in data.investment_entity -%}
+                                                                                {%- if investment.id == investment_entity.investment_id -%}
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td class="num mid green_pos_red_neg">{{ investment_entity.value }}</td>
+                                                                                    <td>{{ investment_entity.time }}</td>
+                                                                                    <td>
+                                                                                        <button form="form_delete_investment_entity{{investment_entity.id}}">
+                                                                                            <i class="fas fa-trash-alt fa-1x"></i>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                {% endif %}
+                                                                            {%- endfor %}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    {% endif %}
+                                                {%- endfor %}
+                                            </tbody>                                                            
+                                        </table>
+                                    </td>
+                                    <td colspan="1"></td>
+                                </tr>
+                            {%- endfor %} 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

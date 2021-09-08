@@ -1,16 +1,16 @@
 {% macro all(type) %}
-    <form id="form_post_{{type}}" method='POST' action="/receipt/post"></form>
+    <form id="form_post_{{type}}" method='POST' action="/{{type}}/post"></form>
     {% for item in data.all -%}
-        <form id="form_put_{{type}}{{item.id}}" method='POST' action="/receipt/put/{{item.id}}"></form>
-        <form id="form_delete_{{type}}{{item.id}}" method='POST' action="/receipt/delete/{{item.id}}"></form>  
-        <form id="form_post_{{type}}_ent{{item.id}}" method="POST" action="/receipt/ent/post/{{item.id}}"></form>
+        <form id="form_put_{{type}}{{item.id}}" method='POST' action="/{{type}}/put/{{item.id}}"></form>
+        <form id="form_delete_{{type}}{{item.id}}" method='POST' action="/{{type}}/delete/{{item.id}}"></form>  
+        <form id="form_post_{{type}}_ent{{item.id}}" method="POST" action="/{{type}}/ent/post/{{item.id}}"></form>
     {% endfor -%}            
     {% for e in data.ent -%}
-        <form id="form_put_{{type}}_ent{{e.id}}" method='POST' action="/receipt/ent/put/{{e.id}}"></form>
-        <form id="form_delete_{{type}}_ent{{e.id}}" method='POST' action="/receipt/ent/delete/{{e.id}}"></form>
+        <form id="form_put_{{type}}_ent{{e.id}}" method='POST' action="/{{type}}/ent/put/{{e.id}}"></form>
+        <form id="form_delete_{{type}}_ent{{e.id}}" method='POST' action="/{{type}}/ent/delete/{{e.id}}"></form>
     {% endfor -%}
 
-    <div class="grid container">            
+    <div class="grid container">
         <div class="grid4">
             <div class="table-responsive">
                 <table class="table1">
@@ -55,7 +55,7 @@
                                 <td></td>
                                 <td><input type="text" name="title" form="form_put_{{type}}{{item.id}}" value="{{item['title']}}"/></td>
                                 <td class="num mid">{{ item.cnt }}</td>
-                                <td class="num mid">$ {{ item.sum }}</td>
+                                <td class="num mid green_pos_red_neg">{{ item.sum }}</td>
                                 <td class="num mid">{{ item.min_t }}</td>
                                 <td class="num mid">{{ item.max_t }}</td>
                                 <td class="mid">
@@ -75,7 +75,7 @@
                                 <td></td>
                                 <td>{{ item['title'] }}</td>
                                 <td class="num mid">{{ item.cnt }}</td>
-                                <td class="num mid">$ {{ item.sum }}</td>
+                                <td class="num mid green_pos_red_neg">{{ item.sum }}</td>
                                 <td class="num mid">{{ item.min_t }}</td>
                                 <td class="num mid">{{ item.max_t }}</td>
                                 <td class="mid">

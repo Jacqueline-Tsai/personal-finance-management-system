@@ -5,37 +5,37 @@
             <table>
                 <thead>
                     <tr>
-                        <th class="mid">
-                            <button onclick="toggle('row_rcpt_ent_new')">
+                        <th class="mid" style="width: 4%">
+                            <button onclick="toggle('row_{{type}}_ent_new'+'{{item.id}}')">
                                 <i class="fas fa-plus fa-1x"></i>
                             </button>
                         </th>
-                        <th>Title</th>
-                        <th class="mid">Value</th>
-                        <th class="mid">Time</th>
-                        <th class="mid">ACTIONS</th>
+                        <th style="width: 37%">Title</th>
+                        <th class="mid" style="width: 19%">Value</th>
+                        <th class="mid" style="width: 26%">Time</th>
+                        <th class="mid" style="width: 14%">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr id="row_rcpt_ent_new" style="display: none;">
+                    <tr id="row_{{type}}_ent_new{{item.id}}" style="display: none;">
                         <td></td>
                         <td>
-                            <input type="text" name="title" form="form_post_rcpt_ent{{item.id}}">
-                        </td>
-                        <td>
-                            <input type="text" name="value" form="form_post_rcpt_ent{{item.id}}">
+                            <input type="text" name="title" size="25" form="form_post_{{type}}_ent{{item.id}}">
                         </td>
                         <td class="num mid">
-                            <input type="date" name="time" form="form_post_rcpt_ent{{item.id}}">
+                            <input type="text" name="value" size="8" form="form_post_{{type}}_ent{{item.id}}">
+                        </td>
+                        <td class="mid">
+                            <input type="date" name="time" form="form_post_{{type}}_ent{{item.id}}">
                         </td>
                         <td class="mid">
                             <div class="in-row">
-                                <button form="form_post_rcpt_ent{{item.id}}">
+                                <button form="form_post_{{type}}_ent{{item.id}}">
                                     <i class="fas fa-check fa-1x"></i>
                                 </button>
                             </div>
                             <div class="in-row">
-                                <button onclick="toggle('row_rcpt_ent_new');">
+                                <button onclick="toggle('row_{{type}}_ent_new'+'{{item.id}}');">
                                     <i class="fas fa-times fa-1x"></i>
                                 </button>
                             </div>
@@ -43,37 +43,37 @@
                     </tr>
                     {% for e in data.ent -%}
                         {%- if item.id == e.parent_id -%}
-                            <tr id="row_rcpt_ent_edit{{e.id}}" style="display: none;">
+                            <tr id="row_{{type}}_ent_edit{{e.id}}" style="display: none;">
                                 <td></td>
-                                <td><input type="text" name="title" form="form_put_rcpt_ent{{e.id}}" value="{{e.title}}"></td>
-                                <td><input type="text" name="value" form="form_put_rcpt_ent{{e.id}}" value="{{e.value}}"></td>
-                                <td class="num mid"><input type="date" name="time" form="form_put_rcpt_ent{{e.id}}" value="{{e.time}}"></td>
+                                <td><input type="text" name="title" size="25" form="form_put_{{type}}_ent{{e.id}}" value="{{e.title}}"></td>
+                                <td class="mid"><input type="text" name="value" size="8" form="form_put_{{type}}_ent{{e.id}}" value="{{e.value}}"></td>
+                                <td class="num mid"><input type="date" name="time" form="form_put_{{type}}_ent{{e.id}}" value="{{e.time}}"></td>
                                 <td class="mid">
                                     <div class="in-row">
-                                        <button form="form_put_rcpt_ent{{e.id}}">
+                                        <button form="form_put_{{type}}_ent{{e.id}}">
                                             <i class="fas fa-check fa-1x"></i>
                                         </button>
                                     </div>
                                     <div class="in-row">
-                                        <button onclick="toggle('row_rcpt_ent_edit'+'{{e.id}}'); toggle('row_rcpt_ent'+'{{e.id}}');">
+                                        <button onclick="toggle('row_{{type}}_ent_edit'+'{{e.id}}'); toggle('row_{{type}}_ent'+'{{e.id}}');">
                                             <i class="fas fa-times fa-1x"></i>
                                         </button>
                                     </div>
                                 </td>
                             </tr>
-                            <tr id="row_rcpt_ent{{e.id}}">
+                            <tr id="row_{{type}}_ent{{e.id}}">
                                 <td></td>
                                 <td>{{ e.title }}</td>
-                                <td class="num mid">$ {{ e.value }}</td>
+                                <td class="num mid green_pos_red_neg">{{ e.value }}</td>
                                 <td class="num mid">{{ e.time }}</td>
                                 <td class="mid">
                                     <div class="in-row">
-                                        <button onclick="toggle('row_rcpt_ent_edit'+'{{e.id}}'); toggle('row_rcpt_ent'+'{{e.id}}');">
+                                        <button onclick="toggle('row_{{type}}_ent_edit'+'{{e.id}}'); toggle('row_{{type}}_ent'+'{{e.id}}');">
                                             <i class="fas fa-pencil-alt fa-1x"></i>
                                         </button>
                                     </div>
                                     <div class="in-row">
-                                        <button form="form_delete_rcpt_ent{{e.id}}">
+                                        <button form="form_delete_{{type}}_ent{{e.id}}">
                                             <i class="fas fa-trash-alt fa-1x"></i>
                                         </button>
                                     </div>

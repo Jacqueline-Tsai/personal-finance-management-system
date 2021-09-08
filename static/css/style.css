@@ -1,7 +1,7 @@
 
 :root {
-    --black: rgba(21,32,54,1);
-    --gray: rgba(34,42,61,1);
+    --black: rgb(21,32,54);
+    --gray: rgb(34,42,61);
     --card-margin-h: 2vh;
     --card-margin-w: 2vh;
     --sidebar-w: 60px;

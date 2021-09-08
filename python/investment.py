@@ -1,37 +1,41 @@
 from __main__ import app
 import json
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 db = SQLAlchemy(app)
 
-class Inv:
-    def __init__(self):
-        pass
-    def all():
-        #return db.engine.execute(""" 
-        #    select i1.id, i1.title, min_t, max_t, ifnull(i3.sum, 0) rcpt_sum, ifnull(i3.cnt, 0) rcpt_cnt, ifnull(i4.sum, 0) expnd_sum, ifnull(i4.cnt, 0) expnd_cnt
-        #    from Inv i1 left join (
-        #        select inv_id id, min(time) min_t, max(time) max_t from Inv_ent group by inv_id
-        #    ) as i2 on i1.id=i2.id left join (
-        #        select inv_id id, count(id) cnt, sum(value) sum from Inv_ent where value>0 group by inv_id
-        #    ) as i3 on i1.id=i3.id left join (
-        #        select inv_id id, count(id) cnt, -sum(value) sum from Inv_ent where value<0 group by inv_id
-        #    ) as i4 on i1.id=i4.id;
-        #""").all()
+class Investment_class:
+    def get():
         return db.engine.execute("""
-            select * from Inv i1 left join (
-                select inv_id, min(time) min_t, max(time) max_t, count(id) cnt, sum(value) sum from Inv_ent group by inv_id
-            ) as i2 on i1.id=i2.inv_id order by i2.max_t desc;
+            select a.*, count(d.id) count, ifnull(sum(d.book_value), 0) book_value, ifnull(sum(d.realized), 0) realized from investment_class a left join (
+                select b.*, count(c.id), sum(c.value) realized from investment b left join investment_entity c on b.id=c.investment_id group by(b.id)
+            )d on a.id=d.class_id group by(a.id)
         """).all()
-    def ent():
-        return db.engine.execute(""" 
-            select id, inv_id parent_id, title, value, time from Inv_ent order by time desc;;
-        """).all()
-    def sum_rcpt():
-        return db.engine.execute(""" 
-            select ifnull(sum(value), 0) val from Inv_ent where value > 0
-        """).first()['val']
-    def sum_expnd():
-        return -db.engine.execute(""" 
-            select ifnull(sum(value), 0) val from Inv_ent where value < 0
-        """).first()['val']   
-    
+    def insert(data):
+        instructuon = "insert into Investment_class (title) values('" + data['title'] + "')"
+        db.engine.execute(text(instructuon))
+    def update(id, data):
+        instructuon = "update Investment_class set title='" + data['title'] + "' where id=" + id
+        db.engine.execute(text(instructuon))
+    def delete(id):
+        instructuon = "delete from Investment_class where id=" + id
+        db.engine.execute(text(instructuon))
+
+class Investment:
+    def get():
+        instruction = "select a.*, count(b.id) count, ifnull(sum(b.value), 0) realized from investment a left join investment_entity b on a.id=b.investment_id group by(a.id)"
+        return db.engine.execute(text(instruction)).all()
+    def insert(id, data):
+        db.engine.execute(text("insert into Investment (class_id, title, remaining, book_value) values(" + id + ", '" + data['title'] + "', " + data['remaining'] + ", " + data['book_value'] + ")"))
+    def update(id, data):
+        db.engine.execute(text("update Investment set title='" + data['title'] + "', remaining=" + data['remaining'] + ", book_value=" + data['book_value'] + " where id=" + id))
+    def delete(id):
+        db.engine.execute(text("delete from Investment where id=" + id))
+
+class Investment_entity:    
+    def get():
+        return db.engine.execute(text("select * from investment_entity")).all()
+    def insert(id, data):
+        db.engine.execute(text("insert into Investment_entity(receipt_id, value, time) values("+ id + ", " + data['value'] + ", '" + data['date'] +"');"))
+    def delete(id):
+        db.engine.execute(text("delete from Investment_entity where id=" + id))

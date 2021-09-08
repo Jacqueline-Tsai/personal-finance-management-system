@@ -11,6 +11,6 @@ button {
 .btn-select {
     background-color: var(--black);
 }
-button:hover {
-    background-color: var(--black);
+.view:hover {
+    background-color: var(--gray);
 }
