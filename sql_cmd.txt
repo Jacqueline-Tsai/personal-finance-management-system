@@ -214,6 +214,9 @@ insert into Investment_class (title) values('currency');
         insert into Investment_entity(investment_id, value, time) values(4, -32840, '2021-09-03');
     insert into Investment (class_id, title, remaining, book_value) values(2, 'CNY', 5000, 21265);
         insert into Investment_entity(investment_id, value, time) values(5, -21430, '2021-09-07');
+    insert into Investment (class_id, title, remaining, book_value) values(2, 'USD', 400, 11082);
+        insert into Investment_entity(investment_id, value, time) values(6, -5553, '2021-09-08');
+        insert into Investment_entity(investment_id, value, time) values(6, -5547, '2021-09-09');
 insert into Investment_class (title) values('stock');
 
 

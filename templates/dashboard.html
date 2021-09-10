@@ -3,10 +3,88 @@
 
 <head>
     <meta charset="utf-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://kit.fontawesome.com/f955407fc8.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src={{ url_for("static", filename="js/index.js") }}></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var tmp=[]
+        for(var i=0;i<10;i++){
+            tmp[i]=1
+        }
+        var drawDoughnutChart = function(original_data, balance){
+            console.log(original_data)
+            const data = {
+                labels: original_data['title'],
+                datasets: [
+                    {
+                        label: 'Asset allocation',
+                        data: original_data['value'],
+                        color: 'white',
+                        backgroundColor: ["rgb(20,40,100)", "rgb(40,55,115)", "rgb(53,70,130)", "rgb(70,95,143)", "rgb(89,112,154)", "rgb(145,160,185)", "rgb(178,199,208)", "rgb(204,221,224)"],
+                    }
+                ]
+            };
+
+            var ctx = document.getElementById("asset_allocation_chart");
+            //ctx.height = 30;
+            Chart.defaults.font.size = 14;
+            Chart.defaults.font.family = 'verdana';
+            Chart.defaults.color = 'white';
+            //Chart.defaults.scale.grid.color = 'rgb(34, 42, 61)';
+            //Chart.defaults.scale.grid.lineWidth = 3
+            return new Chart(
+                ctx, {
+                    type: 'doughnut',
+                    indexLabelPlacement: "outside",
+                    radius: "90%", 
+                    innerRadius: "75%",
+                    data: data,
+                    radius:  "90%", 
+                    innerRadius: "80%",
+                    options: {
+                        cutout: '70%',
+                        maintainAspectRatio : false,
+                        aspectRatio: 1,
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            title: {
+                                display: true,
+                                text: ''
+                            }
+                        },
+                    },
+                    plugins: [{
+                        beforeInit: function(chart, args, options) {
+                            var width = chart.width,
+                            height = chart.height,
+                            ctx = chart.ctx;
+
+                            ctx.restore();
+                            var fontSize = (height / 114).toFixed(2);
+                            ctx.font = fontSize + "em sans-serif";
+                            ctx.textBaseline = "middle";
+                            ctx.textAlign = 'top';
+                            ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+                            var text = "1", textX = Math.round((width - ctx.measureText(text).width) / 2), textY = height / 2;
+                            console.log(textX,textY)
+                            ctx.fillText("bbb", textX, textY);
+                            ctx.save();
+                        }
+                    }]
+                }
+            );
+        }
+        window.onload = function() {
+            drawDoughnutChart(JSON.parse({{data|tojson}}).asset_allocation, JSON.parse({{data|tojson}}).balance)
+        }
+    </script>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/button.css">
     <link rel="stylesheet" href="/static/css/text.css">
-    <script src="https://kit.fontawesome.com/f955407fc8.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -52,8 +130,13 @@
         </div>
         <div class="grid2">
             <div class="card">
-                <h4>Balance</h4>
-                <h1 class="mid num">$ {{data.balance}}</h1>
+                
+                <canvas id="asset_allocation_chart"></canvas>
+                
+                <!--<h4>Balance</h4>
+                <h1 class="mid num">
+                    
+                </h1>-->
             </div>
         </div>
         <div class="grid1">

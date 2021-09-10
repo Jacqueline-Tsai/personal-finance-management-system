@@ -5,13 +5,14 @@ app = Flask(__name__)
 from python.receipt import Receipt_class
 from python.receipt import Receipt
 from python.receipt import Receipt_entity
-from  python.expenditure import Expenditure_class
-from  python.expenditure import Expenditure
-from  python.expenditure import Expenditure_entity
-from  python.investment import Investment_class
-from  python.investment import Investment
-from  python.investment import Investment_entity
-from  python.investment_entity import Inv_ent
+from python.expenditure import Expenditure_class
+from python.expenditure import Expenditure
+from python.expenditure import Expenditure_entity
+from python.investment import Investment_class
+from python.investment import Investment
+from python.investment import Investment_entity
+from python.dashboard import Dashboard
+import json
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:jaychou0118@127.0.0.1:3306/Finance"
@@ -24,10 +25,12 @@ def index():
 # dashboard
 @app.route("/dashboard", methods=['GET'])
 def dashboard():
-    data = {'Receipt_sum': Receipt_ent.sum(), 'Expenditure_sum': Expenditure_ent.sum(), 'inv_Receipt_sum': Inv_ent.sum_Receipt(), 'inv_Expenditure_sum': Inv_ent.sum_Expenditure(),
-    'inv_sum': Inv_ent.sum_Receipt()-Inv_ent.sum_Expenditure(), 'balance': Receipt_ent.sum()+Inv_ent.sum_Receipt()-Expenditure_ent.sum()-Inv_ent.sum_Expenditure(), 
-    'Receipt_max_mth': Receipt_ent.max_mth(), 'Expenditure_max_mth': Expenditure_ent.max_mth(), 'Receipt_max_yr': Receipt_ent.max_yr() , 'Expenditure_max_yr': Expenditure_ent.max_yr()}
-    return render_template("dashboard.html", data=data)
+    data = {'asset_allocation': Dashboard.asset_allocation(), 'balance': Dashboard.balance()}
+    #print(type(json.dumps(data, indent = 4)), data)
+    #data = {'Receipt_sum': Receipt_ent.sum(), 'Expenditure_sum': Expenditure_ent.sum(), 'inv_Receipt_sum': Inv_ent.sum_Receipt(), 'inv_Expenditure_sum': Inv_ent.sum_Expenditure(),
+    #'inv_sum': Inv_ent.sum_Receipt()-Inv_ent.sum_Expenditure(), 'balance': Receipt_ent.sum()+Inv_ent.sum_Receipt()-Expenditure_ent.sum()-Inv_ent.sum_Expenditure(), 
+    #'Receipt_max_mth': Receipt_ent.max_mth(), 'Expenditure_max_mth': Expenditure_ent.max_mth(), 'Receipt_max_yr': Receipt_ent.max_yr() , 'Expenditure_max_yr': Expenditure_ent.max_yr()}
+    return render_template("dashboard.html", data=json.dumps(data, indent = 4))
 
 # receipt
 @app.route("/receipt", methods=['GET'])
