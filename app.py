@@ -25,8 +25,14 @@ def index():
 # dashboard
 @app.route("/dashboard", methods=['GET'])
 def dashboard():
-    data = {'asset_allocation': Dashboard.asset_allocation(), 'balance': Dashboard.balance()}
-    #print(type(json.dumps(data, indent = 4)), data)
+    data = {
+        'asset_allocation': Dashboard.asset_allocation(),
+        'receipt_sum': Dashboard.receipt_sum(), 'balance': Dashboard.balance(), 'investment_sum': Dashboard.investment_sum(),
+        'investment_receipt_sum': Dashboard.investment_receipt_sum(), 'receipt_max_month': Dashboard.receipt_max_month(),'investment_expenditure_sum': Dashboard.investment_expenditure_sum(),
+        'receipt_max_year': Dashboard.receipt_max_year(),'investment_best': Dashboard.investment_best(), 'expenditure_sum': Dashboard.expenditure_sum(),
+        'expenditure_max_month': Dashboard.expenditure_max_month(),'expenditure_max_year': Dashboard.expenditure_max_year(),'investment_worst': Dashboard.investment_worst()
+    }
+    print(data)
     #data = {'Receipt_sum': Receipt_ent.sum(), 'Expenditure_sum': Expenditure_ent.sum(), 'inv_Receipt_sum': Inv_ent.sum_Receipt(), 'inv_Expenditure_sum': Inv_ent.sum_Expenditure(),
     #'inv_sum': Inv_ent.sum_Receipt()-Inv_ent.sum_Expenditure(), 'balance': Receipt_ent.sum()+Inv_ent.sum_Receipt()-Expenditure_ent.sum()-Inv_ent.sum_Expenditure(), 
     #'Receipt_max_mth': Receipt_ent.max_mth(), 'Expenditure_max_mth': Expenditure_ent.max_mth(), 'Receipt_max_yr': Receipt_ent.max_yr() , 'Expenditure_max_yr': Expenditure_ent.max_yr()}

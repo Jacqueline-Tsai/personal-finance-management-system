@@ -8,10 +8,6 @@
     <script type="text/javascript" src={{ url_for("static", filename="js/index.js") }}></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        var tmp=[]
-        for(var i=0;i<10;i++){
-            tmp[i]=1
-        }
         var drawDoughnutChart = function(original_data, balance){
             console.log(original_data)
             const data = {
@@ -79,7 +75,23 @@
             );
         }
         window.onload = function() {
-            drawDoughnutChart(JSON.parse({{data|tojson}}).asset_allocation, JSON.parse({{data|tojson}}).balance)
+            data = JSON.parse({{data|tojson}})
+            drawDoughnutChart(data.asset_allocation, data.balance)
+            
+            document.getElementById('receipt_sum').innerHTML = '$ ' + data['receipt_sum']
+            document.getElementById('balance').innerHTML = '$ ' + data.balance
+            document.getElementById('investment_sum').innerHTML = '$ ' + (data.investment_receipt_sum + data.investment_expenditure_sum)
+            document.getElementById('investment_receipt_sum').innerHTML = '$ ' + data.investment_receipt_sum
+            document.getElementById('investment_expenditure_sum').innerHTML = '$ ' + data.investment_expenditure_sum
+            document.getElementById('expenditure_sum').innerHTML = '$ ' + data.expenditure_sum
+
+            document.getElementById('receipt_max_month').innerHTML = '$ '+data.receipt_max_month.value+' (' + data.receipt_max_month.month + '/'+data.receipt_max_month.year.toString().substring(2, 4)+')'
+            document.getElementById('receipt_max_year').innerHTML = '$ ' + data.receipt_max_year.value+' (' + data.receipt_max_month.year + ')'
+            document.getElementById('expenditure_max_month').innerHTML = '$ ' + data.expenditure_max_month.value + ' (' + data.expenditure_max_month.month + '/'+data.expenditure_max_month.year.toString().substring(2, 4)+')'
+            document.getElementById('expenditure_max_year').innerHTML = '$ ' + data.expenditure_max_year.value + ' (' + data.expenditure_max_month.year + ')'
+            document.getElementById('investment_best').innerHTML = Math.round(data.investment_best.roi*10000)/100 + '%  (' + data.investment_best.title + ')'
+            document.getElementById('investment_worst').innerHTML = Math.round(data.investment_worst.roi*10000)/100 + '%  (' + data.investment_worst.title + ')'
+            
         }
     </script>
     <link rel="stylesheet" href="/static/css/style.css">
@@ -95,38 +107,38 @@
         <div class="grid1">
             <div class="card">
                 <h5>Receipt</h5>
-                <h2 class="mid num">$ {{data.rcpt_sum}}</h1>
+                <h2 id="receipt_sum" class="mid num">$ </h1>
             </div>
         </div>
         <div class="grid1">
             <div class="card">
-                <h5>Expenditure</h5>
-                <h2 class="mid num">$ {{data.expnd_sum}}</h1>
+                <h5>Balance</h5>
+                <h2 id="balance" class="mid num">$ </h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Total Investment</h5>
+                <h2 id="investment_sum" class="mid num">$ </h1>
             </div>
         </div>
         <div class="grid1">
             <div class="card">
                 <h5>Investment Receipt</h5>
-                <h2 class="mid num">$ {{data.inv_rcpt_sum}}</h1>
+                <h2 id="investment_receipt_sum" class="mid num">$ </h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Most Receipt (Month)</h5>
+                <h2 id="receipt_max_month" class="mid num">$ </h1>
             </div>
         </div>
         <div class="grid1">
             <div class="card">
                 <h5>Investment Expenditure</h5>
-                <h2 class="mid num">$ {{data.inv_expnd_sum}}</h1>
+                <h2 id="investment_expenditure_sum" class="mid num">$ </h1>
             </div>
-        </div>
-        <div class="grid1">
-            
-        </div>
-        <div class="grid1">
-            <div class="card">
-                <h5>Investment</h5>
-                <h2 class="mid num">$ {{data.inv_sum}}</h1>
-            </div>
-        </div>
-        <div class="grid1">
-            
         </div>
         <div class="grid2">
             <div class="card">
@@ -141,34 +153,41 @@
         </div>
         <div class="grid1">
             <div class="card">
-                <h5></h5>
-                <h2 class="mid num"> </h1>
-            </div>
-        </div>
-        <div class="grid1">
-            <div class="card">
-                <h5>Most Receipt (Month)</h5>
-                <h2 class="mid num">$ {{data.rcpt_max_mth}}</h1>
-            </div>
-        </div>
-        <div class="grid1">
-            <div class="card">
-                <h5>Most Expenditure (Month)</h5>
-                <h2 class="mid num">$ {{data.expnd_max_mth}}</h1>
-            </div>
-        </div>
-        <div class="grid1">
-            <div class="card">
                 <h5>Most Receipt (Year)</h5>
-                <h2 class="mid num">$ {{data.rcpt_max_yr}}</h1>
+                <h2 id="receipt_max_year" class="mid num">$ </h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Best Investment</h5>
+                <h2 id="investment_best" class="mid num">$ </h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Total Expenditure</h5>
+                <h2 id="expenditure_sum" class="mid num">$ {{data.expnd_sum}}</h1>
             </div>
         </div>
         <div class="grid1">
             <div class="card">
                 <h5>Most Expenditure (Year)</h5>
-                <h2 class="mid num">$ {{data.expnd_max_yr}}</h1>
+                <h2 id="expenditure_max_month" class="mid num">$ </h1>
             </div>
         </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Most Expenditure (Year)</h5>
+                <h2 id="expenditure_max_year" class="mid num">$ </h1>
+            </div>
+        </div>
+        <div class="grid1">
+            <div class="card">
+                <h5>Worst Investment</h5>
+                <h2 id="investment_worst" class="mid num">$ </h1>
+            </div>
+        </div>
+        
      </div>
     <!--<div class="container">
         <div class="card3"></div>
